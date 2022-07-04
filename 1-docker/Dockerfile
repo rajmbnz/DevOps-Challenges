@@ -1,8 +1,8 @@
-FROM node:lts-alpine
-
+FROM node:12-alpine
+RUN useradd -u 1001 bmadaiah
+USER bmadaiah
 WORKDIR /app
-
-COPY ./ ./
-RUN yarn install
-
-CMD yarn start
+COPY package.json yarn.lock ./
+RUN yarn install --production
+COPY . .
+CMD ["node", "src/index.js"]
